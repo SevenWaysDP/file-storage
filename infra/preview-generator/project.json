@@ -1,0 +1,9 @@
+{
+  "name": "preview-generator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "infra/preview-generator/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project preview-generator --web",
+  "targets": {}
+}

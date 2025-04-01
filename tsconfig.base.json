@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@infra/antivirus": ["infra/antivirus/src/index.ts"],
+      "@infra/preview-generator": ["infra/preview-generator/src/index.ts"],
+      "@svs/file-storage-api-client": [
+        "libs/file-storage-api-client/src/index.ts"
+      ],
+      "@svs/file-storage-types": ["libs/file-storage-types/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
