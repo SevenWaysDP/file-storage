@@ -100,11 +100,19 @@ export class FilesStorageUC {
 		const abortSignal = undefined;
 		const fileDto = FileDtoMapper.mapFromAxiosResponse(params.fileName, response, StorageType.STANDARD, abortSignal);
 		const fileRecord = await this.filesStorageService.uploadFile(userId, params, fileDto);
+		await this.checkMimeTypeAndRollbackIfNotAllowed(fileRecord);
 
 		const status = this.filesStorageService.getFileRecordStatus(fileRecord);
 		const fileRecordResponse = FileRecordMapper.mapToFileRecordResponse(fileRecord, status);
 
 		return fileRecordResponse;
+	}
+
+	private async checkMimeTypeAndRollbackIfNotAllowed(fileRecord: FileRecord): Promise<void> {
+		if (fileRecord.hasMediaMimeType()) return;
+
+		await this.filesStorageService.permanentlyDeleteFiles([fileRecord]);
+		throw new UnprocessableEntityException(ErrorType.MIME_TYPE_MISMATCH);
 	}
 
 	public async addDocumentToParent(
