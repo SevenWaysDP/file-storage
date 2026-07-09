@@ -54,7 +54,7 @@ import {
 } from '../dto';
 import { FileDtoMapper, FileRecordMapper, ParentStatisticMapper, PreviewBuilder } from '../mapper';
 
-export const FileStorageAuthorizationContext = {
+const FileStorageAuthorizationContext = {
 	create: AuthorizationContextBuilder.write([AuthorizationContextParamsRequiredPermissions.FILESTORAGE_CREATE]),
 	read: AuthorizationContextBuilder.read([AuthorizationContextParamsRequiredPermissions.FILESTORAGE_VIEW]),
 	update: AuthorizationContextBuilder.write([AuthorizationContextParamsRequiredPermissions.FILESTORAGE_EDIT]),
@@ -237,7 +237,7 @@ export class FilesStorageUC {
 		return fileRecordResponse;
 	}
 
-	public async deleteMultipleFilesOfParent(params: MultiFileParams): Promise<FileRecordListResponse> {
+	public async deleteMultipleFiles(params: MultiFileParams): Promise<FileRecordListResponse> {
 		const [fileRecords, count] = await this.filesStorageService.getFileRecords(params.fileRecordIds);
 		const parentReferences = FileRecord.getUniqueParentReferences(fileRecords);
 
